@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { ActorGrid } from '../component/actors/ActorGrid';
 import { MainPageLayout } from '../component/MainPageLayout';
 import { Title } from '../component/Title';
 import { GetApi } from '../misc/config';
+import { ShowGrid } from '../component/shows/ShowGrid';
+
 
 export const Home = () => {
   const [Input, setInput] = useState('');
@@ -29,22 +32,10 @@ export const Home = () => {
     }
     if (Result && Result.length > 0) {
       if (Result[0].show) {
-        return Result.map((item, index) => {
-          return(
-            <div key={item.show.name}>
-              {index} {item.show.name}
-            </div>
-        )
-        });
+        return <ShowGrid data={Result}/>
       }
-      if(Result[0].person) {
-        return Result.map((item, index) => {
-          return(
-            <div key={item.person.name}>
-              {index} {item.person.name}
-            </div>
-        )
-        });
+      else {
+        return <ActorGrid data={Result}/>
       }
       
     }
@@ -94,7 +85,7 @@ export const Home = () => {
         />
       </div>
 
-      <button type="button" style={{marginTop:"7px"}} onClick={onSearch}>
+      <button type="button" style={{marginTop:"7px",marginRight:"7px"}} onClick={onSearch}>
         Search
       </button>
       {RenderResult()}
