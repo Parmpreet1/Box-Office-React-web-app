@@ -1,17 +1,26 @@
-import React from 'react'
+import React from 'react';
+import { StyledActorCard } from './ActorCard.Styled';
 
-export const ActorCard = ({ image, name, gender, country, birthday, deathday }) => {
-        return (
-          <div>
-            <div>
-              <img src={image} alt="actor" />
-            </div>
-            <h1>
-              {name} {gender ? `(${gender})` : null}
-            </h1>
-            <p>{country ? `Comes from ${country}` : 'No country known'}</p>
-            {birthday ? <p>Born {birthday}</p> : null}
-            <p>{deathday ? `Died ${deathday}` : 'Alive'}</p>
-          </div>
-        );
-      };
+
+export const ActorCard = ({
+  image,
+  name,
+  gender,
+  country,
+  birthday,
+  deathday,
+}) => {
+  return (
+    <StyledActorCard>
+      <div>
+        <img className="img-wrapper" src={image} alt="actor" />
+      </div>
+      <h1>
+        {name} {gender ? `(${gender})` : null}
+      </h1>
+      <p>{country ? `Comes from ${country}` : 'No country known'}</p>
+      {birthday ? <p>Born {birthday}</p> : null}
+      <p className='deathday'>{deathday ? `Died ${deathday}` : 'Alive'}</p>
+    </StyledActorCard>
+  );
+};
