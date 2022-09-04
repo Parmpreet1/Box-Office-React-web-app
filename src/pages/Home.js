@@ -5,7 +5,6 @@ import { Title } from '../component/Title';
 import { GetApi } from '../misc/config';
 import { ShowGrid } from '../component/shows/ShowGrid';
 
-
 export const Home = () => {
   const [Input, setInput] = useState('');
   const [Result, setResult] = useState(null);
@@ -32,18 +31,16 @@ export const Home = () => {
     }
     if (Result && Result.length > 0) {
       if (Result[0].show) {
-        return <ShowGrid data={Result}/>
+        return <ShowGrid data={Result} />;
+      } else {
+        return <ActorGrid data={Result} />;
       }
-      else {
-        return <ActorGrid data={Result}/>
-      }
-      
     }
   };
-  const onRadioChange=(ev)=>{
-    setSearchOption(ev.target.value)
-  }
- 
+  const onRadioChange = ev => {
+    setSearchOption(ev.target.value);
+  };
+
   return (
     <>
       <Title
@@ -53,14 +50,17 @@ export const Home = () => {
       <MainPageLayout />
       <input
         type="text"
-        onChange={e => setInput(e.target.value)}
+        onChange={e => {
+          setInput(e.target.value);
+          onSearch();
+        }}
         onKeyDown={onKey}
         value={Input}
         placeholder="Search for something"
       ></input>
 
       <div className="form-check">
-      <label className="form-check-label" htmlFor="show-search">
+        <label className="form-check-label" htmlFor="show-search">
           Shows
         </label>
         <input
@@ -70,12 +70,12 @@ export const Home = () => {
           id="show-search"
           value="shows"
           onChange={onRadioChange}
-          checked={SearchOption==='shows'}
+          checked={SearchOption === 'shows'}
         />
         <label className="form-check-label" htmlFor="Actor-search">
-        Actors
+          Actors
         </label>
-          <input
+        <input
           className="form-check-input"
           type="radio"
           name="flexRadioDefault"
@@ -85,7 +85,11 @@ export const Home = () => {
         />
       </div>
 
-      <button type="button" style={{marginTop:"7px",marginRight:"7px"}} onClick={onSearch}>
+      <button
+        type="button"
+        style={{ marginTop: '7px', marginRight: '7px' }}
+        onClick={onSearch}
+      >
         Search
       </button>
       {RenderResult()}
