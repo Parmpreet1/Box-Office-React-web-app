@@ -20,7 +20,7 @@ export const ShowCard = ({ id, name, image, summary }) => {
 
       <div className='btns'>
         <Link to={`/show/${id}`}>Read more</Link>
-        <button type="button">Star me</button>
+        <button type="button" >Star me</button>
       </div>
     </StyledShowCard>
   );

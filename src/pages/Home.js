@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { ActorGrid } from '../component/actors/ActorGrid';
 import { MainPageLayout } from '../component/MainPageLayout';
 import { Title } from '../component/Title';
@@ -7,6 +7,10 @@ import { ShowGrid } from '../component/shows/ShowGrid';
 
 export const Home = () => {
   const [Input, setInput] = useState('');
+  useEffect(() => {
+    onSearch();
+  }, [Input])
+  
   const [Result, setResult] = useState(null);
   const [SearchOption, setSearchOption] = useState('shows');
   const onSearch = () => {
@@ -52,7 +56,6 @@ export const Home = () => {
         type="text"
         onChange={e => {
           setInput(e.target.value);
-          onSearch();
         }}
         onKeyDown={onKey}
         value={Input}
