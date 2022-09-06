@@ -2,7 +2,7 @@ import { useReducer,useEffect } from "react"
 
 const showsReducer=(preState,action)=>{
     switch (action.type) {
-        case "Add":
+        case "ADD":
             return [...preState,action.showId]
         case "REMOVE":
             return preState.filter(showId=>showId!==action.showId)
