@@ -6,8 +6,10 @@ import { GetApi } from '../misc/config';
 import { ShowGrid } from '../component/shows/ShowGrid';
 
 export const Home = () => {
-  const [Input, setInput] = useState('');
+  const initialInput=localStorage.getItem(`input`);
+  const [Input, setInput] = useState(JSON.parse(initialInput));
   useEffect(() => {
+    localStorage.setItem(`input`,JSON.stringify(Input))
     onSearch();
   }, [Input])
   

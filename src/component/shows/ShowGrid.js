@@ -15,7 +15,7 @@ export const ShowGrid = ({ data }) => {
           } else {
             dispatchStarred({ type: 'ADD', showId: show.id });
           }
-        }
+        };
         return (
           <ShowCard
             key={show.id}
