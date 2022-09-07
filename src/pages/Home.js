@@ -4,12 +4,12 @@ import { MainPageLayout } from '../component/MainPageLayout';
 import { Title } from '../component/Title';
 import { GetApi } from '../misc/config';
 import { ShowGrid } from '../component/shows/ShowGrid';
+import { useLastQuery } from '../misc/Custom-hooks';
 
 export const Home = () => {
-  const initialInput=localStorage.getItem(`input`);
-  const [Input, setInput] = useState(JSON.parse(initialInput));
+  
+  const [Input, setInput] = useLastQuery();
   useEffect(() => {
-    localStorage.setItem(`input`,JSON.stringify(Input))
     onSearch();
   }, [Input])
   
