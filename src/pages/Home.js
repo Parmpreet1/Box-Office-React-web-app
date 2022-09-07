@@ -5,14 +5,11 @@ import { Title } from '../component/Title';
 import { GetApi } from '../misc/config';
 import { ShowGrid } from '../component/shows/ShowGrid';
 import { useLastQuery } from '../misc/Custom-hooks';
+import { RadioInputsWrapper, RadioWrapper, SearchButtonWrapper, SearchInput } from '../MainAppStyle';
 
 export const Home = () => {
   
   const [Input, setInput] = useLastQuery();
-  useEffect(() => {
-    onSearch();
-  }, [Input])
-  
   const [Result, setResult] = useState(null);
   const [SearchOption, setSearchOption] = useState('shows');
   const onSearch = () => {
@@ -20,8 +17,15 @@ export const Home = () => {
     jsonArray.then(R => {
       setResult(R);
     });
-    console.log(Result);
+    
   };
+  useEffect(() => {
+    const jsonArray = GetApi(`/search/${SearchOption}?q=${Input}`);
+    jsonArray.then(R => {
+      setResult(R);
+      console.log(Result);
+    });
+  }, [Input,SearchOption,Result])
   const onKey = evt => {
     if (evt.keyCode === 13) {
       onSearch();
@@ -54,7 +58,7 @@ export const Home = () => {
         subtitle={'Are you looking for a movie or an actor?'}
       />
       <MainPageLayout />
-      <input
+      <SearchInput
         type="text"
         onChange={e => {
           setInput(e.target.value);
@@ -62,12 +66,12 @@ export const Home = () => {
         onKeyDown={onKey}
         value={Input}
         placeholder="Search for something"
-      ></input>
+      ></SearchInput>
 
-      <div className="form-check">
-        <label className="form-check-label" htmlFor="show-search">
+      <RadioInputsWrapper className="form-check">
+        <RadioWrapper className="form-check-label" htmlFor="show-search">
           Shows
-        </label>
+        </RadioWrapper>
         <input
           className="form-check-input"
           type="radio"
@@ -77,9 +81,9 @@ export const Home = () => {
           onChange={onRadioChange}
           checked={SearchOption === 'shows'}
         />
-        <label className="form-check-label" htmlFor="Actor-search">
+        <RadioWrapper className="form-check-label" htmlFor="Actor-search">
           Actors
-        </label>
+        </RadioWrapper>
         <input
           className="form-check-input"
           type="radio"
@@ -88,15 +92,16 @@ export const Home = () => {
           value="people"
           onChange={onRadioChange}
         />
-      </div>
-
-      <button
+      </RadioInputsWrapper>
+      <SearchButtonWrapper>
+      <button 
         type="button"
         style={{ marginTop: '7px', marginRight: '7px' }}
         onClick={onSearch}
-      >
+        >
         Search
       </button>
+      </SearchButtonWrapper>
       {RenderResult()}
     </>
   );
