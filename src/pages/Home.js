@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect} from 'react';
 import { ActorGrid } from '../component/actors/ActorGrid';
 import { MainPageLayout } from '../component/MainPageLayout';
 import { Title } from '../component/Title';
@@ -6,13 +6,16 @@ import { GetApi } from '../misc/config';
 import { ShowGrid } from '../component/shows/ShowGrid';
 import { useLastQuery } from '../misc/Custom-hooks';
 import { RadioInputsWrapper, RadioWrapper, SearchButtonWrapper, SearchInput } from '../MainAppStyle';
+// import { useCallback } from 'react';
 
 export const Home = () => {
+  
   
   const [Input, setInput] = useLastQuery();
   const [Result, setResult] = useState(null);
   const [SearchOption, setSearchOption] = useState('shows');
-  const onSearch = () => {
+  console.log(Result);
+  const onSearch =() => {
     const jsonArray = GetApi(`/search/${SearchOption}?q=${Input}`);
     jsonArray.then(R => {
       setResult(R);
@@ -20,12 +23,9 @@ export const Home = () => {
     
   };
   useEffect(() => {
-    const jsonArray = GetApi(`/search/${SearchOption}?q=${Input}`);
-    jsonArray.then(R => {
-      setResult(R);
-      console.log(Result);
-    });
-  }, [Input,SearchOption,Result])
+    onSearch()
+    console.log(Result)
+  }, [Input,SearchOption])
   const onKey = evt => {
     if (evt.keyCode === 13) {
       onSearch();
@@ -69,6 +69,7 @@ export const Home = () => {
       ></SearchInput>
 
       <RadioInputsWrapper className="form-check">
+        
         <RadioWrapper className="form-check-label" htmlFor="show-search">
           Shows
         </RadioWrapper>

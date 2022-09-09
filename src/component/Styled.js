@@ -1,5 +1,6 @@
 import Styled from 'styled-components';
 
+
 export const FlexGrid=Styled.div`
     display : flex;
     justify-content: center;
